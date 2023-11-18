@@ -12,7 +12,9 @@ router.use(cors())
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, './complaints'); // The directory where uploaded files will be stored
+     
+      fs.mkdirSync('complaints/', { recursive: true }); // The directory where uploaded files will be stored
+      cb(null, 'complaints/');
     },
     filename: function (req, file, cb) {
       cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
@@ -47,7 +49,7 @@ router.post('/RegisterComplaint',upload.single('image'),async(req,res)=>{
         if (!file) {
           return res.status(400).json({success:false,message:'no image was uploaded'});
         }  
-        //const imgpath=`../complaints/${file.filename}`
+      
         const{Description,type,latitude,longitude,uid}=req.body;
         console.log(file)
         const img=file.filename;       
