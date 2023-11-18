@@ -69,12 +69,12 @@ router.post('/Login',async (req,res)=>{
     GreenUser.findOne({email:email}).then((doc)=>{
         if(doc)
         {
-            if(doc.password===password) res.send(doc.id).status(200);
-            else res.send('Password incorrect').status(401);
+            if(doc.password===password) res.json({success:true ,userid:doc.id}).status(200);
+            else res.json({message:'Password incorrect',success:false}).status(401);
         }
         else
         {
-            res.send('Creds incorrect').status(401);
+            res.json({message:'Creds incorrect',success:false}).status(401);
         }
     })   
 })
