@@ -5,9 +5,14 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 const userSchema = new mongoose.Schema({
     username: String,
+    pushToken:String,
     password: String,   
     email: String,
     points:Number,
+    homelocation:{
+      lattitude:Number,
+      longitute:Number,
+    },
     Complaints:[{
         complaint:{
             type:mongoose.Schema.Types.ObjectId,
@@ -23,23 +28,31 @@ const userSchema = new mongoose.Schema({
         ref: 'Complaints'
     },
     Date:Date,
-    location:String,
+    location:{
+      lattitude:Number,
+      longitute:Number,
+    },
     Description:String,
     imagepath:String,
   });
   
   
   const Drives = new mongoose.Schema({
+    type:String,
     organizer:{type: mongoose.Schema.Types.ObjectId,ref: 'User'},
     Details:String,
-    location:String,
+    title:String,
+    location:{
+      latitude:Number,
+      longitude:Number,
+    },
     praticipants:[{type: mongoose.Schema.Types.ObjectId,ref: 'User'}],
     imagepath:String,
   });
   
-  const User = mongoose.model('User', userSchema);
-  const Book = mongoose.model('Complaints', Complaints);
+  const GreenUser = mongoose.model('User', userSchema);
+  const Complaint = mongoose.model('Complaints', Complaints);
  
-  const Fine = mongoose.model('Drives', Drives);
+  const Drive = mongoose.model('Drives', Drives);
   
-  module.exports = { User, Book, Fine };
+  module.exports = { GreenUser, Complaint, Drive };
