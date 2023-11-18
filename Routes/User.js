@@ -27,7 +27,7 @@ router.post('/Register', async (req,res)=>{
     const user = new GreenUser({username:name,password:password,email:email})
     await user.save().then((doc)=>{
         console.log('User Saved');
-        res.send(doc);
+        res.json({doc:doc})
     })
 })
 router.post('/send-notification', async (req, res) => {
@@ -64,8 +64,7 @@ router.post('/RegisterComplaint',upload.single('image'),async(req,res)=>{
 
 router.post('/Login',async (req,res)=>{
     
-    const {email,password}=req.body
-    console.log(email,password)
+    const {email,password}=req.body    
     GreenUser.findOne({email:email}).then((doc)=>{
         if(doc)
         {
