@@ -63,8 +63,8 @@ router.post('/RegisterComplaint',upload.single('image'),async(req,res)=>{
 })
 
 router.post('/Login',async (req,res)=>{
-    const {password,email}=req.body;
-    console.log(email,password)
+    const formData=req.body;
+    console.log(formData)
     GreenUser.findOne({email:email}).then((doc)=>{
         if(doc)
         {
