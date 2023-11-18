@@ -45,7 +45,7 @@ router.post('/send-notification', async (req, res) => {
 router.post('/RegisterComplaint',upload.single('image'),async(req,res)=>{
         const { file } = req;
         if (!file) {
-          return res.status(400).send('No file uploaded.');
+          return res.status(400).json({success:false,message:'no image was uploaded'});
         }  
         //const imgpath=`../complaints/${file.filename}`
         const{Description,type,latitude,longitude,uid}=req.body;
@@ -58,7 +58,7 @@ router.post('/RegisterComplaint',upload.single('image'),async(req,res)=>{
           const id=doc.id;
           await GreenUser.findByIdAndUpdate(uid,{$push:{Complaints:{complaint:id}}});
         })
-        return res.status(200).send('complaint was registered');
+        return res.status(200).json({success:true,message:'complaint was registered'});
       
 })
 
