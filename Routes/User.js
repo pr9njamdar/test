@@ -49,6 +49,7 @@ router.post('/RegisterComplaint',upload.single('image'),async(req,res)=>{
         }  
         //const imgpath=`../complaints/${file.filename}`
         const{Description,type,latitude,longitude,uid}=req.body;
+        console.log(file)
         const img=file.filename;       
         const userid=new mongoose.Types.ObjectId(uid);
         const lat= parseFloat(latitude);
