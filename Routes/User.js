@@ -20,7 +20,7 @@ const storage = multer.diskStorage({
   });
  
   const upload = multer({ storage: storage });
-  router.use('./complaints',express.static('complaints'))
+  //router.use('./complaints',express.static('complaints'))
 
 router.post('/Register', async (req,res)=>{
     const {name,password,email}=req.body;
