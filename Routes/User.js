@@ -6,6 +6,7 @@ const mongoose=require('mongoose')
 const path = require('path');
 const sendPushNotification=require('./Notifications.js')
 const {GreenUser, Complaint}=require('../mongodb');
+const fs =require('fs')
 router.use(express.json())
 router.use(express.urlencoded({extended:false}))
 router.use(cors())
