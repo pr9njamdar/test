@@ -28,7 +28,7 @@ router.post('/Organize',upload.single('image'),async(req,res)=>{
         //const imgpath=`../complaints/${file.filename}`
         const{title,message,type,uid,longitude,latitude}=req.body;
         
-        const img=req.file.file.filename;        
+        const img=req.file.filename;        
         const userid=new mongoose.Types.ObjectId(uid);
         // make sure to include image path
         const NewDrive = new Drive({organizer:userid,type:type,Details:message,title:title,location:{latitude:latitude,longitude:longitude},imagepath:img});
