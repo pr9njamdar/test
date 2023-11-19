@@ -4,7 +4,7 @@ const router=express.Router();
 const multer = require('multer');
 const mongoose=require('mongoose')
 const path = require('path');
-
+const fs =require('fs')
 const {GreenUser, Drive}=require('../mongodb');
 router.use(express.json())
 router.use(express.urlencoded({extended:false}))
@@ -12,7 +12,8 @@ router.use(cors())
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, './Drives'); // The directory where uploaded files will be stored
+      fs.mkdirSync('Drives/', { recursive: true });
+      cb(null, 'Drives/'); // The directory where uploaded files will be stored
     },
     filename: function (req, file, cb) {
       cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
@@ -39,6 +40,10 @@ router.post('/Organize',upload.single('image'),async(req,res)=>{
         })       
         return res.status(200).json({success:true});
       
+})
+
+router.get('/local',(req,res)=>{
+  Drive.find({})
 })
 
 module.exports=router;
