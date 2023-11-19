@@ -10,7 +10,7 @@ const fs =require('fs')
 router.use(express.json())
 router.use(express.urlencoded({extended:false}))
 router.use(cors())
-
+router.use(express.static(__dirname+'/complaints'));
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
      
