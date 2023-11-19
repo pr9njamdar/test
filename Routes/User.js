@@ -26,8 +26,8 @@ const storage = multer.diskStorage({
   //router.use('./complaints',express.static('complaints'))
 
 router.post('/Register', async (req,res)=>{
-    const {name,password,email}=req.body;
-    const user = new GreenUser({username:name,password:password,email:email})
+    const {name,password,email,pushToken}=req.body;
+    const user = new GreenUser({username:name,password:password,email:email,pushToken:pushToken})
     await user.save().then((doc)=>{
         console.log('User Saved');
         res.json({doc:doc})
@@ -81,12 +81,6 @@ router.post('/Login',async (req,res)=>{
     })   
 })
 
-router.post('/pushToken',async (req,res)=>{    
-  const {uid,pushToken}=req.body    
-  await GreenUser.findByIdAndUpdate(uid,{pushToken:pushToken}).then((doc)=>{
-      console.log(doc);
-      res.json({success:true})
-  })
-})
+
 
 module.exports=router;
