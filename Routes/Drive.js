@@ -27,13 +27,15 @@ router.post('/Organize',upload.single('image'),async(req,res)=>{
         //const imgpath=`../complaints/${file.filename}`
         const{title,message,type,uid,longitude,latitude}=req.body;
         
-         img=req.file.file.filename;        
+        const img=req.file.file.filename;        
         const userid=new mongoose.Types.ObjectId(uid);
         // make sure to include image path
         const NewDrive = new Drive({organizer:userid,type:type,Details:message,title:title,location:{latitude:latitude,longitude:longitude},imagepath:img});
         await NewDrive.save().then((doc)=>{
-          // and inform to all the people in the surrounding area          
-          // save drives information to local 
+          if(doc)
+          {
+
+          }
         })       
         return res.status(200).json({success:true});
       
