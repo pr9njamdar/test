@@ -14,5 +14,6 @@ app.use('/Drive',DriveRoute)
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
+  console.log(path.join(__dirname, '../complaints/', 'sample.png'))
   console.log(`Server is running on http://localhost:${PORT}`);
 });
