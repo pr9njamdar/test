@@ -42,7 +42,7 @@ router.post('/Organize',upload.single('image'),async(req,res)=>{
       
 })
 
-router.get('/local',async(req,res)=>{
+router.post('/local',async(req,res)=>{
   let radius=0.00001
   const {latitude,longitude}=req.body
   await Drive.find({'location.latitude':{$gte : latitude-radius,$lte:latitude+radius},'location.longitude':{$gte : longitude-radius,$lte:longitude+radius}}).populate('organizer','username').then((doc)=>{
