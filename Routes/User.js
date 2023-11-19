@@ -55,9 +55,8 @@ router.post('/RegisterComplaint',upload.single('image'),async(req,res)=>{
         console.log(file)
         const img=file.filename;       
         const userid=new mongoose.Types.ObjectId(uid);
-        const lat= parseFloat(latitude);
-        const lon=parseFloat(longitude);
-        const complaint=new Complaint({type:type,reporter:userid,location:{lattitude:lat,longitute:lon},Description:Description,imagepath:img})
+        
+        const complaint=new Complaint({type:type,reporter:userid,location:{latitude:latitude,longitude:longitude},Description:Description,imagepath:img})
         await complaint.save().then(async(doc)=>{
           const id=doc.id;
           await GreenUser.findByIdAndUpdate(uid,{$push:{Complaints:{complaint:id}}});
@@ -80,6 +79,14 @@ router.post('/Login',async (req,res)=>{
             res.json({message:'Creds incorrect',success:false}).status(401);
         }
     })   
+})
+
+router.post('/pushToken',async (req,res)=>{    
+  const {uid,pushToken}=req.body    
+  await GreenUser.findByIdAndUpdate(uid,{pushToken:pushToken}).then((doc)=>{
+      console.log(doc);
+      res.json({success:true})
+  })
 })
 
 module.exports=router;

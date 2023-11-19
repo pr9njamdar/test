@@ -30,7 +30,7 @@ const userSchema = new mongoose.Schema({
     Date:Date,
     location:{
       lattitude:Number,
-      longitute:Number,
+      longitude:Number,
     },
     Description:String,
     imagepath:String,
@@ -46,7 +46,7 @@ const userSchema = new mongoose.Schema({
       latitude:Number,
       longitude:Number,
     },
-    praticipants:[{type: mongoose.Schema.Types.ObjectId,ref: 'User'}],
+    
     imagepath:String,
   });
   
