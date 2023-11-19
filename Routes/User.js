@@ -10,7 +10,7 @@ const fs =require('fs')
 router.use(express.json())
 router.use(express.urlencoded({extended:false}))
 router.use(cors())
-router.use(express.static(__dirname+'/complaints'));
+
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
      
@@ -23,7 +23,7 @@ const storage = multer.diskStorage({
   });
  
   const upload = multer({ storage: storage });
-  //router.use('./complaints',express.static('complaints'))
+  
 
 router.post('/Register', async (req,res)=>{
     const {name,password,email,pushToken}=req.body;

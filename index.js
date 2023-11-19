@@ -7,8 +7,8 @@ const UserRoute=require('./Routes/User.js')
 const DriveRoute=require('./Routes/Drive.js')
 
 app.use(cors())
-console.log(__dirname)
-app.use(express.static(__dirname));
+
+app.use('/complaints', express.static(path.join(__dirname, 'complaints')));
 app.use('/User',UserRoute)
 app.use('/Drive',DriveRoute)
 
