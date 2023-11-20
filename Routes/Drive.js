@@ -30,12 +30,14 @@ router.post('/Organize',upload.single('image'),async(req,res)=>{
         
         const img=req.file.filename;        
         const userid=new mongoose.Types.ObjectId(uid);
-        // make sure to include image path
+        
         const NewDrive = new Drive({organizer:userid,type:type,Details:message,title:title,location:{latitude:latitude,longitude:longitude},imagepath:img});
-        await NewDrive.save().then((doc)=>{
+        await NewDrive.save({new:true}).then(async(doc)=>{
           if(doc)
           {
-
+            const location=doc.location
+            const tokens=await GreenUser.find({'location.latitude':{$gte : location.latitude-radius,$lte:location.latitude+radius},'location.longitude':{$gte : location.longitude-radius,$lte:location.longitude+radius}}).select('pushToken')
+            console.log(tokens);
           }
         })       
         return res.status(200).json({success:true});
@@ -48,7 +50,7 @@ router.post('/local',async(req,res)=>{
   console.log(latitude,longitude)
   await Drive.find({'location.latitude':{$gte : latitude-radius,$lte:latitude+radius},'location.longitude':{$gte : longitude-radius,$lte:longitude+radius}}).populate('organizer','username').then((doc)=>{
     
-    res.json(doc)
+  res.json(doc)
   })
 })
 
