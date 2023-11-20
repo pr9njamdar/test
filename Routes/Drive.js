@@ -37,7 +37,7 @@ router.post('/Organize',upload.single('image'),async(req,res)=>{
           {
             const radius=0.01
             const location=doc.location
-            const tokens=await GreenUser.find({'location.latitude':{$gte : location.latitude-radius,$lte:location.latitude+radius},'location.longitude':{$gte : location.longitude-radius,$lte:location.longitude+radius}}).select('pushToken')
+            const tokens=await GreenUser.find({'homelocation.latitude':{$gte : location.latitude-radius,$lte:location.latitude+radius},'homelocation.longitude':{$gte : location.longitude-radius,$lte:location.longitude+radius}}).select('pushToken')
             console.log(tokens);
           }
         })       
