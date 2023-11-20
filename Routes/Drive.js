@@ -35,6 +35,7 @@ router.post('/Organize',upload.single('image'),async(req,res)=>{
         await NewDrive.save({new:true}).then(async(doc)=>{
           if(doc)
           {
+            const radius=0.01
             const location=doc.location
             const tokens=await GreenUser.find({'location.latitude':{$gte : location.latitude-radius,$lte:location.latitude+radius},'location.longitude':{$gte : location.longitude-radius,$lte:location.longitude+radius}}).select('pushToken')
             console.log(tokens);
