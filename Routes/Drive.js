@@ -7,6 +7,7 @@ const path = require('path');
 const fs =require('fs')
 const {GreenUser, Drive}=require('../mongodb');
 router.use(express.json())
+const sendPushNotification=require('./Notifications.js')
 router.use(express.urlencoded({extended:false}))
 router.use(cors())
 
@@ -38,6 +39,9 @@ router.post('/Organize',upload.single('image'),async(req,res)=>{
             const radius=0.01
             const location=doc.location
             const tokens=await GreenUser.find({'homelocation.latitude':{$gte : location.latitude-radius,$lte:location.latitude+radius},'homelocation.longitude':{$gte : location.longitude-radius,$lte:location.longitude+radius}}).select('pushToken')
+            tokens.map(async(token)=>{
+              await sendPushNotification(token.pushToken,doc.title,`Organized by ${doc.organizer.username}`)
+            })
             console.log(tokens);
           }
         })       
