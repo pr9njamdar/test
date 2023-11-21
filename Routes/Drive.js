@@ -33,7 +33,7 @@ router.post('/Organize',upload.single('image'),async(req,res)=>{
         const userid=new mongoose.Types.ObjectId(uid);
         
         const NewDrive = new Drive({organizer:userid,type:type,Details:message,title:title,location:{latitude:latitude,longitude:longitude},imagepath:img});
-        await NewDrive.save({new:true}).then(async(doc)=>{
+        await (await NewDrive.save({new:true})).populate('organizer','username').then(async(doc)=>{
           if(doc)
           {
             const radius=0.01
