@@ -27,8 +27,9 @@ const storage = multer.diskStorage({
 
 router.post('/Register', async (req,res)=>{
     const {name,password,email,pushToken,latitude,longitude}=req.body;
-    console.log(latitude,longitude)
-    const user = new GreenUser({username:name,password:password,email:email,pushToken:pushToken,'homelocation.latitude':parseFloat(latitude),'homelocation.longitude':parseFloat(longitude)})
+    const lat=parseFloat(latitude)
+    const long=parseFloat(longitude)
+    const user = new GreenUser({username:name,password:password,email:email,pushToken:pushToken,latitude:lat,longitude:long})
     await user.save().then((doc)=>{
         console.log('User Saved');
         res.json({doc:doc})
