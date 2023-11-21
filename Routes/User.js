@@ -36,18 +36,10 @@ router.post('/Register', async (req,res)=>{
         res.json({doc:doc})
     })
 })
-router.post('/send-notification', async (req, res) => {
-  const { pushToken, title, body } = req.body;
-
-  if (!pushToken || !title || !body) {
-    return res.status(400).json({ error: 'Missing required parameters' });
-  }
-
-  // Call the sendPushNotification function
-  await sendPushNotification(pushToken, title, body);
-
-  res.json({ success: true });
-});
+router.get('/complaints',async(req,res)=>{
+  const doc= await Complaint.find({}).populate('reporter','username')
+  res.json(doc);
+})
 router.post('/RegisterComplaint',upload.single('image'),async(req,res)=>{
         const { file } = req;
         if (!file) {

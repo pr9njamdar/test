@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema({
     type:String,
     reporter:{
         type:mongoose.Schema.Types.ObjectId,
-        ref: 'Complaints'
+        ref: 'User'
     },
     Date:Date,
     location:{
