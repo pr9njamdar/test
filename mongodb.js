@@ -8,11 +8,10 @@ const userSchema = new mongoose.Schema({
     pushToken:String,
     password: String,   
     email: String,
-   
-    
-      lattitude:Number,
-      longitute:Number,
-   
+    homelocation:{
+      latitude:Number,
+      longitude:Number,
+    } ,
     Complaints:[{
         complaint:{
             type:mongoose.Schema.Types.ObjectId,
