@@ -50,7 +50,7 @@ router.post('/RegisterComplaint',upload.single('image'),async(req,res)=>{
         console.log(file)
         const img=file.filename;       
         const userid=new mongoose.Types.ObjectId(uid);
-        
+        console.log(latitude,longitude)
         const complaint=new Complaint({type:type,reporter:userid,location:{latitude:latitude,longitude:longitude},Description:Description,imagepath:img})
         await complaint.save().then(async(doc)=>{
           const id=doc.id;
