@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema({
     },
     Date:Date,
     location:{
-      lattitude:Number,
+      latitude:Number,
       longitude:Number,
     },
     Description:String,
